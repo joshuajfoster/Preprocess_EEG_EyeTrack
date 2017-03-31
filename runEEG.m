@@ -30,8 +30,6 @@ for i =1:length(subs)
     %% do ERPs
     tic
     erp = eeg; clear eeg; % pass eeg data to erp structure
-%     erpSettings = ERPsettings; % load in erp settings
-%     erp = catstruct(erp,erpSettings); % add erp settings to erp struct
     erp = doERPs(erp,settings); % doERP pipeline
     fprintf('saving ERP file.. \n')
     erpName = [dRoot,num2str(subs(i)),'_EEG_SEG_',filename,'.mat'];
