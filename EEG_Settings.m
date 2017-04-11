@@ -1,17 +1,22 @@
 function settings = EEG_Settings
 % This function specifies the settings that the preprocessing functions call on.
 
-fprintf('loading preprocessing settings... \n')
+fprintf('loading settings... \n')
 
 settings.droppedElectrodes = {'Fp1','Fp2'}; % electrodes to remove
 
+%% directory info
+settings.dir.raw_filename = ['JJF_EB_16_7']; % name of data file (minus subject number)
+settings.dir.raw_data_path = ['F:\UC Raw Data\JJF_EB_16_7\EEG\']; % where to find EEG data
+settings.dir.processed_data_path = ['F:\UC Artifact Rejection\JJF_EB_16_4\Preprocessed_Data\']; % where to save preprocessed files
+
 %% segmentation settings
 
-settings.seg.codes = [21]; % vector of all event codes of interest.
+settings.seg.codes = [51]; % vector of all event codes of interest.
 
 % Timing for artifact rejection (times should be ABSOLUTE VALUES) 
 settings.seg.arfPreTime = 300; % msec prior to timelock
-settings.seg.arfPostTime = 2400; % msec post timelock (600 ms after array onset)
+settings.seg.arfPostTime = 1300; % msec post timelock (600 ms after array onset)
 
 % Timing stuff for building waveforms (times should be absolute values) 
 settings.seg.preTime = settings.seg.arfPreTime+500; % msecs prior to timelock built in extra 500ms for time freq analyses
