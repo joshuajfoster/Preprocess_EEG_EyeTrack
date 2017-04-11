@@ -4,6 +4,11 @@ function settings = EyeTrack_Settings
 
 fprintf('loading eye tracking settings... \n')
 
+%% Directory information
+settings.dir.raw_filename = ['JFEB4']; % name of data file (minus subject number)
+settings.dir.raw_data_path = ['F:\UC Raw Data\JJF_EB_16_4\EyeTrack\']; % where to find eyetracking data
+settings.dir.processed_data_path = ['F:\UC Artifact Rejection\JJF_EB_16_4\Preprocessed_Data\']; % detination for preprocessed files
+
 %% General setup
 
 % eye tracker settings
