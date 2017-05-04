@@ -13,6 +13,10 @@ settings = EyeTrack_Settings;
 
 %% preprocess eye track data and save file (no segmentation)
 fname = [num2str(sn),settings.dir.raw_filename];
+f_dir_name = [settings.dir.raw_data_path,fname,'.edf'];
+if ~exist(f_dir_name)
+    error(['Cannot find the file at ',f_dir_name])
+end
 eye = edfmex([settings.dir.raw_data_path,fname,'.edf']); % read in edf file
 
 % check the specified sampling rate is correct
