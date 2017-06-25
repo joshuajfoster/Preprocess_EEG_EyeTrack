@@ -14,9 +14,9 @@ function RestructureforEEGLABgui(sn,eyeTrack)
 dbstop if error
 
 %% Directory info
-dir = ['F:\UC Artifact Rejection\JJF_EB_16_4\Preprocessed_Data\'];
-eyeFilename = '_EYE_SEG_JFEB4.mat';
-eegFilename = '_EEG_SEG_JJF_EB_16_4.mat';
+dir = ['F:\UC Artifact Rejection\JJF_17_3\Preprocessed Data\'];
+eyeFilename = '_EYE_SEG_JF3.mat';
+eegFilename = '_EEG_SEG_JJF_17_3.mat';
 
 % name of restructured file to be saved
 rName = [dir,num2str(sn),'_restruct_for_arf.mat'];
@@ -80,38 +80,44 @@ end
 
 %% ensure the sampling rates match for eyetracking and eeg data
 
-% REVIEW: Check this works!!!!
-
-% if eye tracking sampling is faster than eeg, downsample eye tracking
-if eye_srate > eeg_srate
-    % downsample eye tracking data
-    downsamp = eye_srate/eeg_srate; 
-    microV_H = microV_H(:,1:downsamp:end);
-    microV_V = microV_V(:,1:downsamp:end);
-    fprintf('EyeTrack sampled faster than EEG, downsampled eye tracking')
+% only do this if eye tracking exists.
+if eyeTrack
+    
+    % if eye tracking sampling is faster than eeg, downsample eye tracking
+    if eye_srate > eeg_srate
+        % downsample eye tracking data
+        downsamp = eye_srate/eeg_srate;
+        microV_H = microV_H(:,1:downsamp:end);
+        microV_V = microV_V(:,1:downsamp:end);
+        fprintf('EyeTrack sampled faster than EEG, downsampled eye tracking')
+    end
+    
+    % if eeg sampling is faster than eye tracking, downsample eeg
+    if eeg_srate > eye_srate
+        % downsample eeg data
+        downsamp = eeg_srate/eye_srate;
+        tmpeeg = tmpeeg(:,:,1:downsamp:end);
+        fprintf('EEG sampled faster than EyeTrack, downsampled EEG')
+    end
+    
+    if eye_srate == eeg_srate
+        fprintf('EEG and eye tracking sampling rates matched')
+    end
+    
+    newEEGSamps = size(tmpeeg,3);
+    newEyeSamps = size(microV_H,2);
+    
+    if newEEGSamps ~= newEyeSamps
+        error('did not successfully match sampling rates of eeg and eye tracking')
+    end
+    
+    nSamps = newEEGSamps;
+    
+else % otherwise just get nSamps for EEG
+    
+   nSamps = nSampsEEG;
+   
 end
-
-% if eeg sampling is faster than eye tracking, downsample eeg
-if eeg_srate > eye_srate
-    % downsample eeg data
-    downsamp = eeg_srate/eye_srate;
-    tmpeeg = tmpeeg(:,:,1:downsamp:end);
-    fprintf('EEG sampled faster than EyeTrack, downsampled EEG')
-end
-
-if eye_srate == eeg_srate
-   fprintf('EEG and eye tracking sampling rates matched') 
-end
-
-newEEGSamps = size(tmpeeg,3);
-newEyeSamps = size(microV_H,2);
-
-if newEEGSamps ~= newEyeSamps
-    error('did not successfully match sampling rates of eeg and eye tracking')
-end
-
-nSamps = newEEGSamps;
-
 %% restructure the data so it's compatible with EEGLab
 
 nExtraChans = 6; % 2 for eyetracker and 4 for fixation lines
