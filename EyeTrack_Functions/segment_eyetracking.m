@@ -56,13 +56,13 @@ for t = 1:trial.nTrials
     tWindow = tStart:double(eyeData.rateAcq):tEnd; 
     
     % index times of itnerest with logical
-    tWindowInd = ismember(single(eyeData.sampleTimes),tWindow);
+    tWindowInd = ismember(double(eyeData.sampleTimes),tWindow); % FIXED - changed to doubled
     
     % fix for when marker time is out of sync with sample points
     if eyeData.rateAcq == 2
         if sum(tWindowInd) == 0
             tWindow = tWindow-1;
-            tWindowInd = ismember(single(eyeData.sampleTimes),tWindow);
+            tWindowInd = ismember(double(eyeData.sampleTimes),tWindow); % FIXED - changed to double
         end
     end
     
@@ -72,7 +72,7 @@ for t = 1:trial.nTrials
     end
     
     % create index of the time points that actually exist in the data (i.e., that were recorded).
-    existInd = ismember(tWindow,single(eyeData.sampleTimes));
+    existInd = ismember(tWindow,double(eyeData.sampleTimes)); % FIXED - changed to double
     
     % determine which eye was recorded for trial t
     recordedEye = eyeData.RecordedEye(t);
@@ -95,4 +95,5 @@ figure; imagesc(trial.exist);
 title('Missing samples (1 = data present, 0 = data missing)')
 xlabel('Samples')
 ylabel('Trials')
+caxis([0 1]) % FIXED - hard code color limit
 colorbar
