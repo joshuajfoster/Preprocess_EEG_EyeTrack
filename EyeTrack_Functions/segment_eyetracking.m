@@ -42,9 +42,9 @@ trial.startTimes = double(trial.timeLockTimes) - settings.seg.preTime; % start t
 trial.endTimes = double(trial.timeLockTimes) + settings.seg.postTime;  % end time, ms
 
 % preallocate matrices for segmented data (all the same size)
-trial.gx = nan(2,trial.nTrials,trial.nSamps); trial.gy = trial.gx;
+trial.gx = nan(trial.nTrials,trial.nSamps); trial.gy = trial.gx;
 trial.hx = trial.gx; trial.hy = trial.gx; trial.pa = trial.gx;
-trial.exist = nan(trial.nTrials,trial.nSamps);
+trial.dist = trial.gx; trial.exist = trial.gx;
 
 % loop through trials and segment data
 for t = 1:trial.nTrials
@@ -73,13 +73,17 @@ for t = 1:trial.nTrials
     
     % create index of the time points that actually exist in the data (i.e., that were recorded).
     existInd = ismember(tWindow,double(eyeData.sampleTimes)); % FIXED - changed to double
-
+    
+    % determine which eye was recorded for trial t
+    recordedEye = eyeData.RecordedEye(t);
+    
     % grab the relevant segment of data (from the recorded eye)
-    trial.gx(:,t,existInd) = eyeData.gx(:,tWindowInd);
-    trial.gy(:,t,existInd) = eyeData.gy(:,tWindowInd);
-    trial.hx(:,t,existInd) = eyeData.hx(:,tWindowInd);
-    trial.hy(:,t,existInd) = eyeData.hy(:,tWindowInd);
-    trial.pa(:,t,existInd) = eyeData.pa(:,tWindowInd);
+    trial.gx(t,existInd) = eyeData.gx(recordedEye,tWindowInd);
+    trial.gy(t,existInd) = eyeData.gy(recordedEye,tWindowInd);
+    trial.hx(t,existInd) = eyeData.hx(recordedEye,tWindowInd);
+    trial.hy(t,existInd) = eyeData.hy(recordedEye,tWindowInd);
+    trial.pa(t,existInd) = eyeData.pa(recordedEye,tWindowInd);
+    trial.dist(t,existInd) = eyeData.dist(tWindowInd);
     
     % save exist to the trial structure to make it easy to check where data is missing
     trial.exist(t,:) = existInd;
