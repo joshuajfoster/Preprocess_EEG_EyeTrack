@@ -46,7 +46,7 @@ for i = 1:nChans
     
     % grab data the portion of the segment to apply artifact rejection
     arf_tois = ismember(erp.trial.times,-settings.seg.arfPreTime:settings.seg.arfPostTime);
-    chanDat = squeeze(erp.trial.data(:,i,arf_tois));
+    chanDat = squeeze(erp.trial.baselined(:,i,arf_tois));
     
     parfor t = 1:nTrials
 

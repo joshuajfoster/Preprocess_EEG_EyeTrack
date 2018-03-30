@@ -6,11 +6,11 @@ fprintf('Processing ERPs \n')
 % Segment data (including buffer time for time-freq analyses)
 erp.trial = segment(erp,settings.seg.codes,settings.seg.preTime,settings.seg.postTime);
 
+% baseline correction
+[erp.trial.baselined erp.trial.baselineCorrection] = doBaseline(erp.trial.data,erp.trial.times,settings.seg.baseStart,settings.seg.baseEnd);
+
 % artifact Rejection: mark bad data
 erp = runArtRejection(erp,settings);
-
-% Baseline correction
-[erp.trial.baselined erp.trial.baselineCorrection] = doBaseline(erp.trial.data,erp.trial.times,settings.seg.baseStart,settings.seg.baseEnd);
 
 % remove unwanted data for ERP file
 erp.trial = rmfield(erp.trial,'data'); % just keep the baseline corrected data
