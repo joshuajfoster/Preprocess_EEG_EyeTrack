@@ -35,26 +35,24 @@ trial.codes = nan(nTrials,1);
 
 tCnt = 1;
 % loop through all event codes
-for ii = 1:length(erp.eventCodes);
+for ii = 1:length(erp.eventCodes)
     if codesInd(ii) % if a code of interest, grab the segment!
         
     % Determine start and stop of trial
-    tStart = erp.eventTimes(ii)-preTimeSamp; % jjf: rename this??
-    tEnd = erp.eventTimes(ii)+postTimeSamp;   %jjf: rename this??
+    tStart = erp.eventTimes(ii)-preTimeSamp;
+    tEnd = erp.eventTimes(ii)+postTimeSamp;
     tWindow = tStart:tEnd;
     
     % get time-series data for segment
     rawTS = erp.data(:,tWindow);
     
     % save time-series data to data matrix
-   trial.data(tCnt,1:erp.nChans,:) = rawTS;      % what should I call dMat?
+   trial.data(tCnt,1:erp.nChans,:) = rawTS;
     
-    % grab trial lable....
+    % grab trial label....
     trial.codes(tCnt) = erp.eventCodes(ii);
     
     tCnt = tCnt + 1; % advance trial indexing counter
 
     end
 end
-
-
