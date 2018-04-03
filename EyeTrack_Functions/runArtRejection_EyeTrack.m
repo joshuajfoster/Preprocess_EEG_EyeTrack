@@ -29,7 +29,7 @@ for t = 1:eyeData.trial.nTrials
     missingPupil(t) = art_detect(mpx) | art_detect(mpy); % mark if missing pupil in x or y data
         
     % check for saccades
-    saccade_trial = art_step_gazecoords(xDeg,yDeg,eyeData.rateAcq,arfSettings.stepSize,arfSettings.winSize,arfSettings.maxDeg);
+    saccade_trial = art_2D_step(xDeg,yDeg,eyeData.rateAcq,arfSettings.stepSize,arfSettings.winSize,arfSettings.maxDeg);
     saccade(t) = art_detect(saccade_trial);
     
     % check that eye tracking is inside acceptable window
