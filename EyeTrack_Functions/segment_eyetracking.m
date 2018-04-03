@@ -24,6 +24,9 @@ function trial = segment_eyetracking(eyeData,settings)
 % if no data was found. This fix isn't necessary for a sampling rate of 1000 Hz. 
 % See "fix for when marker time is out of sync with sample points" below
 
+fprintf('segmenting eye tracking data...');
+tic
+
 timeLockInd = strcmp(settings.seg.timeLockMessage,eyeData.messages); % index the time-locking message (e.g., 'StimOnset')
 trial.timeLockTimes = eyeData.eventTimes(timeLockInd); % times for time-locking messsage
 trial.nTrials = sum(timeLockInd); % adds up logical index to get number of trials
@@ -55,14 +58,14 @@ for t = 1:trial.nTrials
     % specify window of interest
     tWindow = tStart:double(eyeData.rateAcq):tEnd; 
     
-    % index times of itnerest with logical
-    tWindowInd = ismember(double(eyeData.sampleTimes),tWindow); % FIXED - changed to doubled
+    % index times of interest with logical
+    tWindowInd = ismember(double(eyeData.sampleTimes),tWindow);
     
     % fix for when marker time is out of sync with sample points
     if eyeData.rateAcq == 2
         if sum(tWindowInd) == 0
             tWindow = tWindow-1;
-            tWindowInd = ismember(double(eyeData.sampleTimes),tWindow); % FIXED - changed to double
+            tWindowInd = ismember(double(eyeData.sampleTimes),tWindow);
         end
     end
     
@@ -80,10 +83,7 @@ for t = 1:trial.nTrials
     % grab the relevant segment of data (from the recorded eye)
     trial.gx(t,existInd) = eyeData.gx(recordedEye,tWindowInd);
     trial.gy(t,existInd) = eyeData.gy(recordedEye,tWindowInd);
-    trial.hx(t,existInd) = eyeData.hx(recordedEye,tWindowInd);
-    trial.hy(t,existInd) = eyeData.hy(recordedEye,tWindowInd);
     trial.pa(t,existInd) = eyeData.pa(recordedEye,tWindowInd);
-    trial.dist(t,existInd) = eyeData.dist(tWindowInd);
     
     % save exist to the trial structure to make it easy to check where data is missing
     trial.exist(t,:) = existInd;
@@ -97,3 +97,8 @@ xlabel('Samples')
 ylabel('Trials')
 caxis([0 1]) % FIXED - hard code color limit
 colorbar
+
+fprintf('\n')
+toc
+
+
