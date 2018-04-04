@@ -5,8 +5,8 @@ function compileEEGarf(sn)
 % sn = subject number
 tic % start timing
 %% directory information
-dRoot = ['F:\UC Artifact Rejection\JJF_EB_16_4\Preprocessed_Data\']; % where to find data files
-eegFN = '_EEG_SEG_JJF_EB_16_4.mat'; % name of data file (minus subject number)
+dRoot = ['X:/Team Josh/JJF_EB_18_2/Artifact Rejection/Preprocessed_data/']; % where to find data files
+eegFN = '_EEG_SEG_JJF_EB_18_2.mat'; % name of data file (minus subject number)
 
 % specify full name of segmented eeg file, and load
 fName = [dRoot,num2str(sn),eegFN]; load(fName);
@@ -16,21 +16,21 @@ EEG = pop_loadset('filename',[num2str(sn),'_ArtRejectIndex.set'],'filepath',dRoo
 EEG = eeg_checkset( EEG );
 
 % grab the relevant indices from the EEGLab arf file
-erp.arf.m_blockingNoiseDropout = EEG.reject(:).rejkurt;
-erp.arf.m_drift = EEG.reject(:).rejconst;
-erp.arf.m_blink = EEG.reject(:).rejthresh;
-erp.arf.m_saccade_eyetrack = EEG.reject(:).rejjp;
-erp.arf.m_saccade_heog = EEG.reject(:).rejfreq;
-erp.arf.manual = EEG.reject(:).rejmanual;
+arf1 = EEG.reject(:).rejkurt;
+arf2 = EEG.reject(:).rejconst;
+arf3 = EEG.reject(:).rejthresh;
+arf4 = EEG.reject(:).rejjp;
+arf5 = EEG.reject(:).rejfreq;
+arf_manual = EEG.reject(:).rejmanual;
 
 % check that we save our artifact rejection
-if isempty(erp.arf.manual)
+if isempty(arf_manual)
     fprintf('No manual artifact rejection detected. Did you remember to save the dataset?')
 end
 
 % create an index of good and bad trials after manual artifact rejection
 for t =  1:erp.trial.nTrials
-    erp.arf.artifactIndCleaned(t) = erp.arf.m_blockingNoiseDropout(t) | erp.arf.m_drift(t) | erp.arf.m_blink(t) | erp.arf.m_saccade_heog(t) | erp.arf.m_saccade_eyetrack(t) | erp.arf.manual(t);
+    erp.arf.artifactIndCleaned(t) = arf1(t) | arf2(t) | arf3(t) | arf4(t) | arf5(t) | arf_manual(t);
 end
 
 % calculate and report summary statistics of artifact rejection
