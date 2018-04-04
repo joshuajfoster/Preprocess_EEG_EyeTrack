@@ -14,9 +14,9 @@ function RestructureforEEGLABgui(sn,eyeTrack)
 dbstop if error
 
 %% Directory info
-dir = ['processed_data_directory here'];
-eyeFilename = 'eye_filename_here'; % e.g. '_EYE_SEG_JF3.mat'
-eegFilename = 'eeg_filename_here'; % e.g., _EEG_SEG_JJF_17_3.mat'
+dir = ['X:/Team Josh/JJF_EB_18_2/Artifact Rejection/Preprocessed_data_auto_test/'];
+eyeFilename = '_EYE_SEG_JF18_2'; % e.g. '_EYE_SEG_JF3.mat'
+eegFilename = '_EEG_SEG_JJF_EB_18_2'; % e.g., _EEG_SEG_JJF_17_3.mat'
 
 % name of restructured file to be saved
 rName = [dir,num2str(sn),'_restruct_for_arf.mat'];
@@ -57,8 +57,8 @@ if eyeTrack
     
     % grab eye position in degrees of vis ang from fixation, multiply by 16
     % to covert to microvolts
-    microV_H = eyeData.trial.xDeg.*16; % horizontal gaze position
-    microV_V = eyeData.trial.yDeg.*16; % vertical gaze posiion
+    microV_H = eyeData.trial.xDeg_bl.*16; % horizontal gaze position
+    microV_V = eyeData.trial.yDeg_bl.*16; % vertical gaze posiion
     
     % get sampling rate
     eye_srate = eyeData.sRate;
@@ -173,31 +173,30 @@ EEG = eeg_checkset( EEG );
 
 if eyeTrack == 1 % eyetracking data!
     
-    % BLUE: blocking, noise, or dropout in EEG
-    EEG.reject(:).rejkurt = (erp.arf.blocking | erp.arf.noise | erp.arf.dropout);
+    % BLUE: noise
+    EEG.reject(:).rejkurt = erp.arf.noise;
     % GREEN: drift in EEG
     EEG.reject(:).rejconst = erp.arf.drift;
-    % LIME GREEN: blinks, lost eyes, missing eye tracker data
-    blinks = eyeData.arf.missingPupil + eyeData.arf.parserBlinks + erp.arf.blink; blinks(blinks>1) = 1; % make all 0s and 1s again
-    EEG.reject(:).rejthresh = blinks;
-    % RED: EyeTracker saccades (from EyeLink parser)
-    EEG.reject(:).rejjp = eyeData.arf.parserSaccs;
-    % PINK/PURPLE: EOG saccade reject
-    EEG.reject(:).rejfreq = erp.arf.eMove;
-    
+    % LIME GREEN: blinks, blocking, or dropout
+    EEG.reject(:).rejthresh = (erp.arf.blocking | erp.arf.blink | erp.arf.dropout); % make all 0s and 1s again
+    % RED: EyeTrack saccades
+    EEG.reject(:).rejjp = eyeData.arf.saccade;
+    % PINK: EyeTrack - gaze outside of window of interest or missing pupil
+    EEG.reject(:).rejfreq = (eyeData.arf.outsideWindow | eyeData.arf.missingPupil);
+
 else % no eyetracking data
     
     % BLUE: blocking, noise, or dropout
-    EEG.reject(:).rejkurt = (erp.arf.blocking | erp.arf.noise | erp.arf.dropout);
+    EEG.reject(:).rejkurt = erp.arf.noise;
     % GREEN: drift
     EEG.reject(:).rejconst = erp.arf.drift;
-    % LIME GREEN: blinks
-    EEG.reject(:).rejthresh = erp.arf.blink;
-    % RED: not assigned
-    %EEG.reject(:).rejjp =
-    % PINK/PURPLE: EOG saccade reject
-    EEG.reject(:).rejfreq = erp.arf.eMove;
-    
+    % LIME GREEN: blinks, blocking, or dropout
+    EEG.reject(:).rejthresh = (erp.arf.blocking | erp.arf.blink | erp.arf.dropout); % make all 0s and 1s again
+    % RED: EyeTrack saccades
+    EEG.reject(:).rejjp = eyeData.arf.saccade;
+    % PINK/PURPLE: not assigned
+%     EEG.reject(:).rejfreq = erp.arf.eMove;
+      
 end
 
 %% Save .set file with the artifact markers
