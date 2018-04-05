@@ -14,7 +14,7 @@ function RestructureforEEGLABgui(sn,eyeTrack)
 dbstop if error
 
 %% Directory info
-dir = ['X:/Team Josh/JJF_EB_18_2/Artifact Rejection/Preprocessed_data_auto_test/'];
+dir = ['X:/Team Josh/JJF_EB_18_2/Artifact Rejection/Preprocessed_data/'];
 eyeFilename = '_EYE_SEG_JF18_2'; % e.g. '_EYE_SEG_JF3.mat'
 eegFilename = '_EEG_SEG_JJF_EB_18_2'; % e.g., _EEG_SEG_JJF_17_3.mat'
 
@@ -193,7 +193,7 @@ else % no eyetracking data
     % LIME GREEN: blinks, blocking, or dropout
     EEG.reject(:).rejthresh = (erp.arf.blocking | erp.arf.blink | erp.arf.dropout); % make all 0s and 1s again
     % RED: EyeTrack saccades
-    EEG.reject(:).rejjp = eyeData.arf.saccade;
+    EEG.reject(:).rejjp = erp.arf.eMove;
     % PINK/PURPLE: not assigned
 %     EEG.reject(:).rejfreq = erp.arf.eMove;
       

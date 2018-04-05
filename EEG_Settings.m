@@ -29,29 +29,29 @@ settings.seg.baseEnd = 0;
 %% artifact rejection settings
 
 % Noise threshold for artifact rejection
-settings.arf.noiseThr = 120; % microvolts % Default: 120; 
+settings.arf.noiseThr = 120; % microvolts (default = 120)
 settings.arf.noiseWin = 15; % ms (short so the peak-to-peak algorithm is selective for high-freq noise)
 settings.arf.noiseStep = 15; % ms no need to check more than every 50 ms for noise
 
 % Threshold for drift
-settings.arf.driftThr = 50; %microvolts
+settings.arf.driftThr = 40; %microvolts (default = 40)
 
 % Step function settings for channel drop out (main cap channels sometimes
 % have step functions when they suddenly drop out! 
 % do a wide window length to avoid catching alpha!! 
-settings.arf.dropoutWin = 250; %ms
+settings.arf.dropoutThr = 60; % microvolts (default = 60)
+settings.arf.dropoutWin = 250; %ms 
 settings.arf.dropoutStep = 20; % ms
-settings.arf.dropoutThr = 60; % microvolts
 
 % Step function settings for blink rejection
-settings.arf.blinkWin = 150; % ms
+settings.arf.blinkWin = 150; % ms (default = 150)
 settings.arf.blinkStep = 10; % ms
 settings.arf.blinkThr = 50; % microvolts
 
 % Step function settings for horizontal eye movements 
-settings.arf.eMoveWin = 100; % ms
+settings.arf.eMoveThr = 20; % microvolts (default = 20)
+settings.arf.eMoveWin = 100; % ms 
 settings.arf.eMoveStep = 10; % ms
-settings.arf.eMoveThr = 20; %microvolts
 
 % Settings for block rejection
 settings.arf.blockWin = 100; % ms
