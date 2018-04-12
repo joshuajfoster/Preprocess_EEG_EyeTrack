@@ -12,4 +12,4 @@ arfSettings.stepSize = 10;  % ms ---- how much the window moves by
 arfSettings.maxDeg = .5; % default = 0.5
 
 % degrees of visual angle. Max acceptable distance of (baselined) gaze from fixation
-arfSettings.window = 1.2; % default = 1.0
+arfSettings.window = 1.0; % default = 1.5
