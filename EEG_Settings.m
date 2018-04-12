@@ -57,4 +57,4 @@ settings.arf.eMoveStep = 10; % ms
 settings.arf.blockWin = 100; % ms
 settings.arf.blockStep = 50; % ms
 settings.arf.blockX = 60; % ms
-settings.arf.blockY = 1; % microvolts
+settings.arf.blockY = 0.5; % microvolts
