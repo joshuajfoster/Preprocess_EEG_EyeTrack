@@ -71,7 +71,7 @@ Different artifacts are marked with different colors in EEGLAB. Below is a summa
 
 * Blue: high-frequency noise
 * Green: drifts
-* Lime green: blinks, blocking, or sudden steps in voltage (dropout
+* Lime green: blinks, blocking, or sudden steps in voltage (dropout)
 * Red: saccades based on EOG (usually pretty inaccurate)
 
 ·    
