@@ -24,8 +24,8 @@ settings.viewDist = 75; % viewing distance (cm)
 
 % monitor details
 settings.monitor.xPixels = 1920;
-settings.monitor.yPixels = 1024;
-settings.monitor.pxSize = 0.0275;
+settings.monitor.yPixels = 1080;
+settings.monitor.pxSize = 0.0277; % 53.2 cm wide/1920 pixels
 
 %% segmentation settings
 settings.seg.timeLockMessage = 'CueOnset'; % message for time locking
