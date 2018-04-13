@@ -6,9 +6,9 @@ fprintf('loading settings... \n')
 settings.droppedElectrodes = {'Fp1','Fp2'}; % electrodes to remove
 
 %% directory info
-settings.dir.raw_filename = ['JJF_EB_18_2']; % name of data file (minus subject number)
-settings.dir.raw_data_path = ['X:/Team Josh/JJF_EB_18_2/Raw Data/EEG/']; % where to find EEG data
-settings.dir.processed_data_path = ['X:/Team Josh/JJF_EB_18_2/Artifact Rejection/Preprocessed_data/']; % where to save preprocessed files
+settings.dir.raw_filename = ['filename']; % name of data file (minus subject number)
+settings.dir.raw_data_path = ['where_to_find_data']; % where to find EEG data
+settings.dir.processed_data_path = ['where_to_save_data']; % where to save preprocessed files
 
 %% segmentation settings
 

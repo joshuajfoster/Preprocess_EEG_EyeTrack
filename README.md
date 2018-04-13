@@ -27,6 +27,7 @@ You can specify the important preprocessing settings in `EyeTrack_Settings.m` (e
 
 * segmentation
 * convert gaze from pixels to degrees from fixation
+* baseline correct eye tracking data
 * automated artifact detection (saccades, blinks, missing pupil)
 
 ## Step 3: Check automated artifact rejection

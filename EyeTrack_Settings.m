@@ -5,9 +5,9 @@ function settings = EyeTrack_Settings
 fprintf('loading eye tracking settings... \n')
 
 %% Directory information
-settings.dir.raw_filename = ['JF18_2']; % name of data file (minus subject number)
-settings.dir.raw_data_path = ['X:/Team Josh/JJF_EB_18_2/Raw Data/EyeTrack/']; % where to find eyetracking data
-settings.dir.processed_data_path = ['X:/Team Josh/JJF_EB_18_2/Artifact Rejection/Preprocessed_data/']; % detination for preprocessed files
+settings.dir.raw_filename = ['filename']; % name of data file (minus subject number)
+settings.dir.raw_data_path = ['where_to_find_data']; % where to find eyetracking data
+settings.dir.processed_data_path = ['where_to_save_data']; % detination for preprocessed files
 
 %% General setup
 
@@ -28,7 +28,7 @@ settings.monitor.yPixels = 1080;
 settings.monitor.pxSize = 0.0277; % 53.2 cm wide/1920 pixels
 
 %% segmentation settings
-settings.seg.timeLockMessage = 'CueOnset'; % message for time locking
+settings.seg.timeLockMessage = 'marker_name'; % message for time locking
 settings.seg.preTime = 300;  % pre-stimulus end of segment, absolute value (ms)
 settings.seg.postTime = 1200; % post-stimulus end of segment, absolute value (ms)
 settings.seg.bl_start = -300; % start of baseline (e.g. -200 for 200 ms pre stimulus)
