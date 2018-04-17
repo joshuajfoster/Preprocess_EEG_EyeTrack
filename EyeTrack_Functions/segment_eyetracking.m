@@ -45,15 +45,23 @@ trial.startTimes = double(trial.timeLockTimes) - settings.seg.preTime; % start t
 trial.endTimes = double(trial.timeLockTimes) + settings.seg.postTime;  % end time, ms
 
 % preallocate matrices for segmented data (all the same size)
-trial.gx = nan(trial.nTrials,trial.nSamps); trial.gy = trial.gx;
-trial.hx = trial.gx; trial.hy = trial.gx; trial.pa = trial.gx;
-trial.dist = trial.gx; trial.exist = trial.gx;
+trial.gx = nan(trial.nTrials,trial.nSamps); trial.gy = trial.gx; trial.pa = trial.gx;
+trial.exist = trial.gx;
+
+% create structs to put data in
+trial_exist = trial.exist; 
+trial_gx = {};
+trial_gy = {};
+trial_pa = {};
+
+startTimes = trial.startTimes;
+endTimes = trial.endTimes;
 
 % loop through trials and segment data
-for t = 1:trial.nTrials
+parfor t = 1:trial.nTrials
     
     % grab the start and end of trial t
-    tStart = trial.startTimes(t); tEnd = trial.endTimes(t);
+    tStart = startTimes(t); tEnd = endTimes(t);
     
     % specify window of interest
     tWindow = tStart:double(eyeData.rateAcq):tEnd; 
@@ -81,13 +89,22 @@ for t = 1:trial.nTrials
     recordedEye = eyeData.RecordedEye(t);
     
     % grab the relevant segment of data (from the recorded eye)
-    trial.gx(t,existInd) = eyeData.gx(recordedEye,tWindowInd);
-    trial.gy(t,existInd) = eyeData.gy(recordedEye,tWindowInd);
-    trial.pa(t,existInd) = eyeData.pa(recordedEye,tWindowInd);
+    trial_gx{t} = eyeData.gx(recordedEye,tWindowInd);
+    trial_gy{t} = eyeData.gy(recordedEye,tWindowInd);
+    trial_pa{t} = eyeData.pa(recordedEye,tWindowInd);
     
     % save exist to the trial structure to make it easy to check where data is missing
-    trial.exist(t,:) = existInd;
+    trial_exist(t,:) = existInd;
     
+end
+
+% put trial data into matrices (but only for points where data was actually
+% sampled)
+trial.exist = logical(trial_exist);
+for t = 1:trial.nTrials
+trial.gx(t,trial.exist(t,:)) = trial_gx{t};
+trial.gy(t,trial.exist(t,:)) = trial_gy{t};
+trial.pa(t,trial.exist(t,:)) = trial_pa{t};
 end
 
 % plot the missing data to alert experimenter to problems
