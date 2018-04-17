@@ -5,7 +5,7 @@ function compileEEGarf(sn)
 % sn = subject number
 tic % start timing
 %% directory information
-dRoot = ['X:/Team Josh/JJF_EB_18_2/Artifact Rejection/Preprocessed_data/']; % where to find data files
+dRoot = ['where_to_find_data']; % where to find data files
 eegFN = '_EEG_SEG_JJF_EB_18_2.mat'; % name of data file (minus subject number)
 
 % specify full name of segmented eeg file, and load
