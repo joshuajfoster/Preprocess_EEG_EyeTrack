@@ -44,6 +44,8 @@ You can use the EEGLAB gui to scroll through the data and check that the automat
    * Once finished, click **Update Marks**
    * Make sure you save the changes in the main EEGLAB window: File -> Save current dataset(s)
 
+Note that the eye tracking and EOG channels have been offset so that they will be clearly visible when you stack the channels (click "stack" in the top right of the scroll window). The horizontal eye position and HEOG are above the scalp channels (which are all stacked), and the vertical eye position and the VEOG are below the scalp channels.
+
 Finally, you can run `compileEEGarf.m` to save the updated artifact index back into the file that contains the segmented EEG data. 
 
 ### What if the automated artifact rejection procedures did a bad job?
