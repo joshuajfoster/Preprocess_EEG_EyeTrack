@@ -37,7 +37,7 @@ while 1
     
     stepDist = norm(postCoord-preCoord); % size of movement from pre-window to post-window
         
-    % mark as bad if stepAmp exceeds threshold
+    % mark as bad if stepDist exceeds threshold
     if stepDist > thresh
         step(window) = 1; 
     end
