@@ -7,8 +7,8 @@ function runEEG(sn)
 
 %%
 dbstop if error
-root = pwd; eRoot = [root,'\EEG_Functions\']; addpath(eRoot) % add folder with eeg functions
-arfRoot = [root,'\Artifact_Functions\']; addpath(arfRoot); % add folder with artifact detection functions
+root = pwd; eRoot = [root,'/EEG_Functions/']; addpath(eRoot) % add folder with eeg functions
+arfRoot = [root,'/Artifact_Functions/']; addpath(arfRoot); % add folder with artifact detection functions
 
 %% load in the preprocessing settings.
 %Everything that you'd want to change is specifed in the EEG_Settings script.
