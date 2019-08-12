@@ -1,4 +1,4 @@
-function settings = EyeTrack_Settings
+function settings = Settings_EyeTrack
 % This function specifies the eye tracking settings that the preprocessing
 % functions call on. 
 
@@ -33,3 +33,15 @@ settings.seg.preTime = 300;  % pre-stimulus end of segment, absolute value (ms)
 settings.seg.postTime = 1200; % post-stimulus end of segment, absolute value (ms)
 settings.seg.bl_start = -300; % start of baseline (e.g. -200 for 200 ms pre stimulus)
 settings.seg.bl_end = 0;     % end of basline
+
+%% artifact rejection settings
+
+% for doing our artifact rejection
+arfSettings.winSize = 60; % ms --- size of sliding window that is looking for saccades
+arfSettings.stepSize = 10;  % ms ---- how much the window moves by 
+
+% degrees of visual angle! if it's bigger than this, reject it 
+arfSettings.maxDeg = .5; % default = 0.5
+
+% degrees of visual angle. Max acceptable distance of (baselined) gaze from fixation
+arfSettings.window = 1.5; % default = 1.5

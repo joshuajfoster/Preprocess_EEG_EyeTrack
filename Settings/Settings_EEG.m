@@ -1,4 +1,4 @@
-function settings = EEG_Settings
+function settings = Settings_EEG
 % This function specifies the settings that the preprocessing functions call on.
 
 fprintf('loading settings... \n')
