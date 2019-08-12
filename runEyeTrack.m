@@ -1,15 +1,22 @@
 function runEyeTrack(sn)
-%quick loop to import edf files to .mat files
-dbstop if error
-root = pwd; eyeRoot = [root,'\EyeTrack_Functions\']; addpath(eyeRoot); % add folder with eyetrack functions
-arfRoot = [root,'\Artifact_Functions\']; addpath(arfRoot); % add folder with artifact detection functions
+% run eye tracking preprocessing
+%
+% Inputs: 
+% sn: subject number
+% all details to change are specified in the function Settings/Settings_EyeTrack
+
+%% setup directories
+root = pwd; 
+addpath([root,'/EEG_Functions']) % add EEG_Functions
+addpath([root,'/EyeTrack_Functions']) % add EyeTrack_Functions
+addpath([root,'/Artifact_Functions']); % add Artifact_Functions
+addpath([root,'/Settings/']); % add Settings
 
 %% Print subject number
 fprintf('Subject:\t%d\n',sn)
 
-%% load in the preprocessing settings.
-% Everything that you'd want to change is specified in the EyeTrack_Settings script
-settings = EyeTrack_Settings;
+%% load in the preprocessing settings
+settings = Settings_EyeTrack;
 
 %% convert the edf file to a mat file (and save)
 edf_name = [num2str(sn),settings.dir.raw_filename];
@@ -19,7 +26,6 @@ eye = edf2mat(settings.dir.raw_data_path,edf_name,settings.dir.processed_data_pa
 eyeData = doEyeTracking(eye,settings);
 
 %% artifact rejection
-arfSettings = EyeTrack_ArtRejectSettings;
 eyeData = runArtRejection_EyeTrack(eyeData,arfSettings); 
 
 eyeData.settings = settings; % save settings to eyeData structure
