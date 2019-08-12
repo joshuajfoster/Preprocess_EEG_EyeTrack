@@ -1,8 +1,6 @@
 # Preprocess_EEG_EyeTrack
 
-This is my pipeline for the preprocessing EEG and eye tracking data obtained in the Awh-Vogel Lab setup. 
-
-Note: We record EEG data with [BrainVision Recorder](www.brainproducts.com). We record eye tracking data with the [EyeLink 1000Plus](http://www.sr-research.com/mount_desktop_1000plus.html). 
+This is my pipeline for the preprocessing EEG and eye tracking data for use with data obtained with [BrainVision Recorder](www.brainproducts.com) and [EyeLink 1000Plus](http://www.sr-research.com/mount_desktop_1000plus.html). 
 
 ## Step 1: Preprocess EEG
 
