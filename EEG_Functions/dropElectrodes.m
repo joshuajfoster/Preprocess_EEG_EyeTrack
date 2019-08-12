@@ -16,4 +16,3 @@ eeg.chanLabels = eeg.chanLabels(toIncludeIdx);
 
 % update nChans
 eeg.nChans = length(eeg.chanLabels); 
-
