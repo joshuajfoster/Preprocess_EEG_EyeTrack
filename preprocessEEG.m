@@ -1,4 +1,4 @@
-function runEEG(sn)
+function preprocessEEG(sn)
 %% JJF's wrapper to run to read in and save EEG file, and run ERP preprocessing
 %
 % Inputs: 

@@ -1,4 +1,4 @@
-function runEyeTrack(sn)
+function preprocessEyeTrack(sn)
 % run eye tracking preprocessing
 %
 % Inputs: 
