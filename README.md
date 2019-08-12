@@ -60,7 +60,7 @@ There are two options if the automated artifact rejection procedures did a bad j
 
 Different artifacts are marked with different colors in EEGLAB. Below is a summary of what each color means.
 
-####For subjects with eye tracking:
+**For subjects with eye tracking:**
 
 * Blue: high-frequency noise
 * Green: drifts
@@ -68,7 +68,7 @@ Different artifacts are marked with different colors in EEGLAB. Below is a summa
 * Red: saccades (based on eye tracking)
 * Pink: eye tracking gaze coordinates to far from fixation or pupil missing
 
-####For subjects without eye tracking:
+**For subjects without eye tracking:**
 
 * Blue: high-frequency noise
 * Green: drifts
