@@ -5,14 +5,17 @@ function runEEG(sn)
 % sn: subject number
 % all details to change are specified in the function EEG_Settings
 
-%%
-dbstop if error
-root = pwd; eRoot = [root,'/EEG_Functions/']; addpath(eRoot) % add folder with eeg functions
-arfRoot = [root,'/Artifact_Functions/']; addpath(arfRoot); % add folder with artifact detection functions
+%% setup directories
+root = pwd; 
+addpath([root,'/EEG_Functions']) % add EEG_Functions
+addpath([root,'/EyeTrack_Functions']) % add EyeTrack_Functions
+addpath([root,'/Artifact_Functions']); % add Artifact_Functions
+addpath([root,'/Settings/']); % add Settings
+
 
 %% load in the preprocessing settings.
 %Everything that you'd want to change is specifed in the EEG_Settings script.
-settings = EEG_Settings;
+settings = Settings_EEG;
 
 %% Print subject number
 fprintf('Subject:\t%d\n',sn)
@@ -25,6 +28,6 @@ toc % report time to process EEG data
 %% do ERPs
 tic
 erp = eeg; clear eeg; % pass eeg data to erp structure
-erp = doERPs(sn,erp,settings); % doERP pipeline
+doERPs(sn,erp,settings); % doERP pipeline
 toc % report time to doERPs
-clear erp
+
