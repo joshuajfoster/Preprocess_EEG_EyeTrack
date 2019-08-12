@@ -1,25 +1,27 @@
 # Preprocess_EEG_EyeTrack
 
-This is my pipeline for the preprocessing EEG and eye tracking data for use with data obtained with [BrainVision Recorder](www.brainproducts.com) and [EyeLink 1000Plus](http://www.sr-research.com/mount_desktop_1000plus.html). 
+This pipeline is for preprocessing EEG and eye tracking data for use with data obtained with [BrainVision Recorder](www.brainproducts.com) and [EyeLink 1000Plus](http://www.sr-research.com/mount_desktop_1000plus.html). 
 
 ## Step 1: Preprocess EEG
 
-Use `runEEG.m` to preprocess the EEG data. 
+Use `preprocessEEG.m` to preprocess the EEG data. 
 
-You can specify important preprocessing settings in `EEG_Settings.m` (e.g., event markers of interest, epoch size, the directory that contains the data, and artifact rejection settings).
+You can specify important preprocessing settings in `Settings/Settings_EEG.m` (e.g., event markers of interest, epoch size, the directory that contains the data, and artifact rejection settings).
 
-`runEEG.m` will perform the following preprocessing steps:
+`preprocessEEG.m` will perform the following preprocessing steps:
 
 * re-reference
+* calculate EOG difference channels
+* drop unwanted electrodes
 * segmentation
 * baseline correction
 * automated artifact rejection
 
 ## Step 2: Preprocess eye tracking data
 
-Use `runEyeTrack.m` to preprocess the eye tracking data. 
+Use `preprocessEyeTrack.m` to preprocess the eye tracking data. 
 
-You can specify the important preprocessing settings in `EyeTrack_Settings.m` (e.g., event messages of interest, epoch size, the directory that contains the data). The artifact rejection settings are specified in `EyeTrack_ArtRejectSettings.m`.
+You can specify the important preprocessing settings in `Settings/Settings_EyeTrack.m` (e.g., event messages of interest, epoch size, the directory that contains the data, and artifact rejection settings). 
 
 `runEyeTrack.m` will perform the following preprocessing steps:
 
@@ -30,7 +32,7 @@ You can specify the important preprocessing settings in `EyeTrack_Settings.m` (e
 
 ## Step 3: Check automated artifact rejection
 
-Use [EEGLAB](https://sccn.ucsd.edu/eeglab/index.php)'s gui to manually inspect the data for artifacts. To reformat the segmented data files (EEG and eye tracking) to view them in EEGLAB, run `RestructureforEEGLABgui.m`.
+Use [EEGLAB](https://sccn.ucsd.edu/eeglab/index.php)'s gui to manually inspect the data for artifacts (you will need to have EEGLAB installed). To reformat the segmented data files (EEG and eye tracking) to view them in EEGLAB, run `RestructureforEEGLABgui.m`.
 
 You can use the EEGLAB gui to scroll through the data and check that the automatic artifact rejection was effective (i.e., artifacts were rejected and there weren't many good trials marked). Here, you can mark artifacts that were missed by the automated routines or unmark good trials that were marked as containing an artifact. To do this:
 
@@ -52,9 +54,8 @@ There are two options if the automated artifact rejection procedures did a bad j
 
 1. Check each and every trial manually, marking the trials with artifacts and unmarking the artifact-free trials. This is time consuming instead you could...
 2. Adjust the artifact rejection settings and re-run the automated procedures. 
-   * You can change the settings in `EEG_Settings.m` and `EyeTrack_ArtRejectSettings.m`
-   * Once you've updated the `EEG_settings.m`, simply re-run `runEEG.m`
-   * Once you've updated the `EyeTrack_ArtRejectSettings.m`, run `redoEyeTracArtReject.m`, which will save you having to re-run the time-consuming segmentation. This function just updates the artifact rejection indices. 
+   * If the problem was with EEG artifact rejection, you can change the settings in `Settings/Settings_EEG.m` and rerun `preprocessEEG.m`.
+   * If the problem was with eye tracking artifact rejection, you can change the settings in `Settings/Settings_EyeTrack.m` and rerun `preprocessEyeTrack`.
 
 ### Key
 
@@ -73,21 +74,4 @@ Different artifacts are marked with different colors in EEGLAB. Below is a summa
 * Blue: high-frequency noise
 * Green: drifts
 * Lime green: blinks, blocking, or sudden steps in voltage (dropout)
-* Red: saccades based on EOG (usually pretty inaccurate)
-
-·    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* Red: saccades based on EOG (this is usually fairly inaccurate)
