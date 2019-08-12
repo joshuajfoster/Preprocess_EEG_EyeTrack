@@ -2,6 +2,7 @@ function eeg = Rereference(eeg,settings)
 % Rereference to the average of the left and right mastoids
 % Based on Luck (2005). Introduction to the Event-Related Potential Technique pg. 107-108
 % Subtantial rewrite by Joshua Foster, 8/9/2019
+% checked again on 8/12/2019
 
 chanLabels = eeg.chanLabels;          % grab channel labels from eeg struct
 data = eeg.data;                      % grab matrix of EEG data
@@ -20,7 +21,7 @@ nChans = size(data,1); % get the size of the matrix with left mastoid removed
 % index channels to rereference (all but the stimtrak)
 chans2rerefIdx = ~ismember(chanLabels,'StimTrak'); 
 
-leftMastoidValue = leftMastoidData./2; % (r/2, in Luck's formula)
+leftMastoidValue = leftMastoidData/2; % (r/2, in Luck's formula)
 
 dataRerefed = nan(size(data)); % preallocate
 % loop through each channel, reference all but the stim trak
@@ -32,6 +33,7 @@ for c = 1:nChans
     end
 end
 
+% save back to EEG struct
 eeg.data = dataRerefed;
 eeg.chanLabels = chanLabels;
 eeg.nChans = nChans;
