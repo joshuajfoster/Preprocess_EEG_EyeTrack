@@ -8,7 +8,6 @@ function preprocessEEG(sn)
 %% setup directories
 root = pwd; 
 addpath([root,'/EEG_Functions']) % add EEG_Functions
-addpath([root,'/EyeTrack_Functions']) % add EyeTrack_Functions
 addpath([root,'/Artifact_Functions']); % add Artifact_Functions
 addpath([root,'/Settings/']); % add Settings
 
