@@ -32,6 +32,7 @@ settings.monitor.pxSize = 0.0277; % 53.2 cm wide/1920 pixels
 
 %% segmentation settings
 settings.seg.timeLockMessage = 'marker_name'; % message for time locking
+settings.seg.timeOffset = 8; % note: this shold match the timeOffset param in EEG_Settings
 settings.seg.preTime = 300;  % pre-stimulus end of segment, absolute value (ms)
 settings.seg.postTime = 1200; % post-stimulus end of segment, absolute value (ms)
 settings.seg.bl_start = -300; % start of baseline (e.g. -200 for 200 ms pre stimulus)
