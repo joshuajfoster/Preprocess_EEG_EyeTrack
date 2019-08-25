@@ -6,13 +6,16 @@ fprintf('loading settings... \n')
 settings.droppedElectrodes = {'Fp1','Fp2'}; % electrodes to remove
 
 %% directory info
-settings.dir.raw_filename = ['filename']; % name of data file (minus subject number)
-settings.dir.raw_data_path = ['where_to_find_data']; % where to find EEG data
-settings.dir.processed_data_path = ['where_to_save_data']; % where to save preprocessed files
+settings.dir.raw_filename = ['JJF_EB_16_7']; % name of data file (minus subject number)
+settings.dir.raw_data_path = ['/Foster/Archived Data/N2pc_cueing/Raw Data/Exp1/EEG/']; % where to find EEG data
+settings.dir.processed_data_path = ['/Foster/Archived Data/N2pc_cueing/ResegmentTest/']; % where to save preprocessed files
 
 %% segmentation settings
 
 settings.seg.codes = [51]; % vector of all event codes of interest.
+settings.seg.timeOffset = 8; % often there is a small, fixel delay from the 
+% event code to the stimulus onset. This param allows you to correct that 
+% (e.g. set to 10 if stim trak lagged marker by 10 ms). 
 
 % Timing for artifact rejection (times should be ABSOLUTE VALUES) 
 settings.seg.arfPreTime =  300; % msec prior to timelock (e.g., 300 is 300 ms prior to time-locking event)

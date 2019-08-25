@@ -8,9 +8,9 @@ fprintf('loading eye tracking settings... \n')
 settings.os = 'mac'; % 'mac' or 'windows'
 
 %% Directory information
-settings.dir.raw_filename = ['filename']; % name of data file (minus subject number)
-settings.dir.raw_data_path = ['where_to_find_data']; % where to find eyetracking data
-settings.dir.processed_data_path = ['where_to_save_data']; % detination for preprocessed files
+settings.dir.raw_filename = ['JFEB7']; % name of data file (minus subject number)
+settings.dir.raw_data_path = ['/Foster/Archived Data/N2pc_cueing/Raw Data/Exp1/EyeTrack/']; % where to find eyetracking data
+settings.dir.processed_data_path = ['/Foster/Archived Data/N2pc_cueing/ResegmentTest/']; % detination for preprocessed files
 
 %% General setup
 
@@ -31,7 +31,7 @@ settings.monitor.yPixels = 1080;
 settings.monitor.pxSize = 0.0277; % 53.2 cm wide/1920 pixels
 
 %% segmentation settings
-settings.seg.timeLockMessage = 'marker_name'; % message for time locking
+settings.seg.timeLockMessage = 'CueOnset'; % message for time locking
 settings.seg.timeOffset = 8; % note: this shold match the timeOffset param in EEG_Settings
 settings.seg.preTime = 300;  % pre-stimulus end of segment, absolute value (ms)
 settings.seg.postTime = 1200; % post-stimulus end of segment, absolute value (ms)

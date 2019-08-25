@@ -39,8 +39,8 @@ for ii = 1:length(erp.eventCodes)
     if codesInd(ii) % if a code of interest, grab the segment!
         
     % Determine start and stop of trial
-    tStart = erp.eventTimes(ii)-preTimeSamp;
-    tEnd = erp.eventTimes(ii)+postTimeSamp;
+    tStart = erp.eventTimesCorrected(ii)-preTimeSamp;
+    tEnd = erp.eventTimesCorrected(ii)+postTimeSamp;
     tWindow = tStart:tEnd;
     
     % get time-series data for segment

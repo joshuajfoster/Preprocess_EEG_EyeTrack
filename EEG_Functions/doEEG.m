@@ -20,3 +20,6 @@ eeg = Rereference(eeg,settings);
 
 % Remove spaces and letters from the BrainProducts codes
 eeg = changeCondCodes(eeg); 
+
+% Apply timing correction to event markers based on stim trak delay
+eeg = fixTiming(eeg,settings.seg.timeOffset); 
