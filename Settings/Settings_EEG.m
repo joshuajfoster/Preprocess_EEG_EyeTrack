@@ -1,22 +1,25 @@
-function settings = EEG_Settings
+function settings = Settings_EEG
 % This function specifies the settings that the preprocessing functions call on.
 
 fprintf('loading settings... \n')
 
-settings.droppedElectrodes = {'Fp1','Fp2'}; % electrodes to remove
+settings.droppedElectrodes = {'TVEOG','BVEOG','LHEOG','RHEOG'}; % electrodes to remove
+
+%% save unsengmented data?
+settings.saveContinuousEEG = 0; % 1 = yes, 0 = no. 
 
 %% directory info
-settings.dir.raw_filename = ['filename']; % name of data file (minus subject number)
-settings.dir.raw_data_path = ['where_to_find_data']; % where to find EEG data
-settings.dir.processed_data_path = ['where_to_save_data']; % where to save preprocessed files
+settings.dir.raw_filename = ['TimingTest']; % name of data file (minus subject number)
+settings.dir.raw_data_path = ['/Foster/Data/Timing tests/']; % where to find EEG data
+settings.dir.processed_data_path = ['/Foster/Data/Timing tests/']; % where to save preprocessed files
 
 %% segmentation settings
 
 settings.seg.codes = [51]; % vector of all event codes of interest.
 
 % Timing for artifact rejection (times should be ABSOLUTE VALUES) 
-settings.seg.arfPreTime =  300; % msec prior to timelock (e.g., 300 is 300 ms prior to time-locking event)
-settings.seg.arfPostTime = 1200; % msec post timelock
+settings.seg.arfPreTime =  0; % msec prior to timelock (e.g., 300 is 300 ms prior to time-locking event)
+settings.seg.arfPostTime = 2400; % msec post timelock
 
 % Timing stuff for building waveforms (times should be absolute values) 
 settings.seg.preTime = settings.seg.arfPreTime+500; % msecs prior to timelock built in extra 500ms for time freq analyses
