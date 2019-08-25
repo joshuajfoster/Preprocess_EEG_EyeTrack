@@ -28,7 +28,7 @@ fprintf('segmenting eye tracking data...');
 tic
 
 timeLockInd = strcmp(settings.seg.timeLockMessage,eyeData.messages); % index the time-locking message (e.g., 'StimOnset')
-trial.timeLockTimes = eyeData.eventTimes(timeLockInd); % times for time-locking messsage
+trial.timeLockTimes = eyeData.eventTimesCorrected(timeLockInd); % times for time-locking messsage
 trial.nTrials = sum(timeLockInd); % adds up logical index to get number of trials
 
 % throw an error if no trials were found

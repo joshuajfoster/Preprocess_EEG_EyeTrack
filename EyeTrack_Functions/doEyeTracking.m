@@ -29,6 +29,9 @@ eyeData.rateAcq = 1000./eyeData.sRate; % calculate rate of data acquisition (ms)
 eyeData.messages = {eye.FEVENT(:).message}; % grab messages sent from PsychToolbox
 eyeData.codestrings = {eye.FEVENT(:).codestring}; % grab codestrings (includes STARTSACC,ENDSACC,STARTFIX,ENDFIX,STARTBLINK,ENDBLINK among other things)
 eyeData.eventTimes = [eye.FEVENT(:).sttime]; % when events occured
+eyeData.eventTimesCorrected = eyeData.eventTimes+settings.seg.timeOffset; % correct event times for delay
+% note: unlike EEG, don't have to divide by rateAcq because eventTimes are
+% already in ms
 
 % which eye was recorded on each trial
 RecordedEyeVec = [eye.RECORDINGS(:).('eye')]; % the eye that was tracked (left or right)
