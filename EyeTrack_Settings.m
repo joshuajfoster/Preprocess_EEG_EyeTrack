@@ -4,6 +4,9 @@ function settings = EyeTrack_Settings
 
 fprintf('loading eye tracking settings... \n')
 
+%% operating system
+settings.os = 'mac'; % 'mac' or 'windows'
+
 %% Directory information
 settings.dir.raw_filename = ['filename']; % name of data file (minus subject number)
 settings.dir.raw_data_path = ['where_to_find_data']; % where to find eyetracking data
