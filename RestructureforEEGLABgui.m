@@ -14,9 +14,9 @@ function RestructureforEEGLABgui(sn,eyeTrack)
 dbstop if error
 
 %% Directory info
-dir = ['where_to_find_data'];
-eyeFilename = 'eyetracking_filename'; % e.g. '_EYE_SEG_JF3.mat'
-eegFilename = 'eeg_filename'; % e.g., _EEG_SEG_JJF_17_3.mat'
+dir = ['/Foster/Archived Data/N2pc_cueing/ResegmentTest/'];
+eyeFilename = '_EYE_SEG_JFEB7.mat'; % e.g. '_EYE_SEG_JF3.mat'
+eegFilename = '_EEG_SEG_JJF_EB_16_7.mat'; % e.g., _EEG_SEG_JJF_17_3.mat'
 
 % name of restructured file to be saved
 rName = [dir,num2str(sn),'_restruct_for_arf.mat'];

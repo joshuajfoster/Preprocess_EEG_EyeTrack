@@ -4,9 +4,6 @@ function settings = EyeTrack_Settings
 
 fprintf('loading eye tracking settings... \n')
 
-%% operating system
-settings.os = 'mac'; % 'mac' or 'windows'
-
 %% Directory information
 settings.dir.raw_filename = ['JFEB7']; % name of data file (minus subject number)
 settings.dir.raw_data_path = ['/Foster/Archived Data/N2pc_cueing/Raw Data/Exp1/EyeTrack/']; % where to find eyetracking data
